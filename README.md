@@ -2,7 +2,9 @@
 
 Left 4 Dead 2의 매치메이커가 원치 않는 서버에 연결할 때, 해당 연결을 커널 레벨에서 가로채 즉시 **거절**시키는 도구입니다.
 
-[![시연 영상](https://img.youtube.com/vi/X6DU8O_8J6Q/maxresdefault.jpg)](https://www.youtube.com/watch?v=X6DU8O_8J6Q)
+<a href="https://www.youtube.com/watch?v=X6DU8O_8J6Q"><img src="https://img.youtube.com/vi/X6DU8O_8J6Q/maxresdefault.jpg" width="360"></a>
+
+[시연 데모 영상](https://www.youtube.com/watch?v=X6DU8O_8J6Q)
 
 ## 문제
 
