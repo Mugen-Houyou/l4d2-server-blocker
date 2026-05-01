@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+*.exe
+build/
+dist/
+*.spec
+blocked_servers.json
