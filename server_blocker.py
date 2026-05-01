@@ -2,25 +2,29 @@
 L4D2 Server Blocker
 
 Intercepts A2S_GETCHALLENGE packets to blacklisted servers and injects
-fake S2C_CONNREJECT responses for instant connection rejection.
+a fake S2C_CHALLENGE with invalid auth protocol for instant disconnection.
 
 Requirements: pip install pydivert
 Must run as Administrator (WinDivert kernel driver).
 """
 
+import sys
+from pathlib import Path
+
+if getattr(sys, 'frozen', False):
+    _BASE_DIR = Path(sys.executable).parent
+    import atexit
+    atexit.register(lambda: input("Press Enter to exit..."))
+else:
+    _BASE_DIR = Path(__file__).parent
+
 import json
 import pydivert
 import struct
 import socket
-import sys
 from fnmatch import fnmatch
-from pathlib import Path
 from datetime import datetime
 
-if getattr(sys, 'frozen', False):
-    _BASE_DIR = Path(sys.executable).parent
-else:
-    _BASE_DIR = Path(__file__).parent
 BLOCKLIST_PATH = _BASE_DIR / "blocked_servers.json"
 
 
@@ -32,14 +36,10 @@ def load_blocklist() -> list[str]:
         sys.exit(1)
     return entries
 
-REJECT_REASON = b"Server blocked by user"
-
 # ──── Source Engine protocol constants ────
 CONNECTIONLESS_HEADER = b'\xff\xff\xff\xff'
 A2S_GETCHALLENGE = 0x71  # 'q'
 S2C_CHALLENGE    = 0x41  # 'A'
-S2C_CONNREJECT   = 0x39  # '9'
-A2A_PRINT        = 0x6C  # 'l'
 
 
 def extract_challenge(payload: bytes) -> bytes | None:
@@ -56,16 +56,6 @@ def extract_challenge(payload: bytes) -> bytes | None:
     return payload[5:9]
 
 
-def build_reject_payload(challenge: bytes) -> bytes:
-    """FF FF FF FF 39 <challenge:4> <reason\\0>"""
-    return (
-        CONNECTIONLESS_HEADER
-        + bytes([S2C_CONNREJECT])
-        + challenge
-        + REJECT_REASON + b'\x00'
-    )
-
-
 def build_bad_challenge_payload(challenge: bytes) -> bytes:
     """Fake S2C_CHALLENGE with invalid auth protocol to force disconnect.
 
@@ -78,15 +68,6 @@ def build_bad_challenge_payload(challenge: bytes) -> bytes:
         + challenge                    # echo client's retryChallenge
         + b'\x01\x02\x03\x04'         # fake server challenge
         + struct.pack('<I', 0)         # auth protocol = 0 (invalid, not PROTOCOL_STEAM=3)
-    )
-
-
-def build_print_payload(msg: str) -> bytes:
-    """A2A_PRINT — prints message on client console (diagnostic)."""
-    return (
-        CONNECTIONLESS_HEADER
-        + bytes([A2A_PRINT])
-        + msg.encode() + b'\x00'
     )
 
 
@@ -184,28 +165,19 @@ def main():
                         log("DROP", f"{dst}  malformed getchallenge")
                         continue
 
-                    # Inject up to 3 packets for diagnosis:
-                    payloads = {
-                        "PRINT":  build_print_payload(
-                            "[BLOCKER] Server blocked!\n"),
-                        "REJECT": build_reject_payload(challenge),
-                        "BADAUTH": build_bad_challenge_payload(challenge),
-                    }
-                    for tag, pl in payloads.items():
-                        raw = build_ip_udp(
-                            packet.dst_addr, packet.src_addr,
-                            packet.dst_port, packet.src_port,
-                            pl,
-                        )
-                        resp = pydivert.Packet(
-                            raw,
-                            interface=packet.interface,
-                            direction=pydivert.Direction.INBOUND,
-                        )
-                        resp.recalculate_checksums()
-                        w.send(resp)
-                    log("INJECT", f"{dst}  challenge={challenge.hex()}"
-                        f"  sent PRINT+REJECT+BADAUTH")
+                    raw = build_ip_udp(
+                        packet.dst_addr, packet.src_addr,
+                        packet.dst_port, packet.src_port,
+                        build_bad_challenge_payload(challenge),
+                    )
+                    resp = pydivert.Packet(
+                        raw,
+                        interface=packet.interface,
+                        direction=pydivert.Direction.INBOUND,
+                    )
+                    resp.recalculate_checksums()
+                    w.send(resp)
+                    log("INJECT", f"{dst}  challenge={challenge.hex()}")
                 else:
                     ptype = (f"0x{payload[4]:02x}"
                              if len(payload) > 4 else "empty")
@@ -223,4 +195,13 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception:
+        import traceback
+        tb = traceback.format_exc()
+        print(tb)
+        log_path = _BASE_DIR / "server_blocker_crash.log"
+        log_path.write_text(tb, encoding="utf-8")
+        print(f"Crash log saved to {log_path}")
+    input("Press Enter to exit...")
