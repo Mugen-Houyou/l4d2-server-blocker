@@ -43,7 +43,7 @@ pyinstaller --onefile --uac-admin --console \
 
 ## 사용법
 
-1. `blocked_servers.example.json`을 `blocked_servers.json`으로 복사한 뒤 차단할 서버를 편집합니다.
+1. 접속을 피하고자 하는 사설 서버의 IP 주소, 포트를 `blocked_servers.json`으로 복사한 뒤 차단할 서버를 편집합니다.
 
 - 이때 `*` 및 `?`에 대해서는 아래 '와일드카드 패턴' 항목을 참고하세요.
 
