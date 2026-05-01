@@ -151,4 +151,4 @@ FF FF FF FF 41              ← connectionless header + S2C_CHALLENGE
 
 ## 라이선스
 
-AGPLv2
+AGPLv3
