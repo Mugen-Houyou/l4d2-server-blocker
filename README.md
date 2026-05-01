@@ -2,6 +2,8 @@
 
 Left 4 Dead 2의 매치메이커가 원치 않는 서버에 연결할 때, 해당 연결을 커널 레벨에서 가로채 즉시 **거절**시키는 도구입니다.
 
+[![시연 영상](https://img.youtube.com/vi/X6DU8O_8J6Q/maxresdefault.jpg)](https://www.youtube.com/watch?v=X6DU8O_8J6Q)
+
 ## 문제
 
 L4D2 매치메이커는 공식/사설 서버를 구별하지 못하고, 서버 운영자측에 차단을 요청한들 그걸 들어주리라는 장담은 불가하며, Windows 방화벽으로 막으면 10회 재시도하므로 시간이 낭비됩니다. 
