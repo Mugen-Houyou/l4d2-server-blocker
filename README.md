@@ -52,6 +52,10 @@ pyinstaller --onefile --uac-admin --console \
 
 1. 접속을 피하고자 하는 사설 서버의 IP 주소, 포트를 `blocked_servers.json`에 추가합니다. 아래와 같은 포맷으로 추가하시면 됩니다.
 
+- 차단할 서버의 IP 주소와 포트는 게임 내 콘솔(\` 키)에서 확인할 수 있습니다.
+
+<img src="docs/console-ip.png" width="480">
+
 - 참고로 `server_blocker.exe`와 `blocked_servers.json`는 같은 폴더에 존재해야 합니다.
 
 - `*` 및 `?`에 대해서는 아래 '와일드카드 패턴' 항목을 참고하세요.
