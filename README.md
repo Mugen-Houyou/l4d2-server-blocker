@@ -42,6 +42,7 @@ pip install pyinstaller pydivert
 pyinstaller --onefile --uac-admin --console \
   --add-data "<site-packages>/pydivert/windivert_dll/WinDivert64.dll;pydivert/windivert_dll" \
   --add-data "<site-packages>/pydivert/windivert_dll/WinDivert64.sys;pydivert/windivert_dll" \
+  --add-binary "<python-env>/Library/bin/ffi.dll;." \
   server_blocker.py
 ```
 
