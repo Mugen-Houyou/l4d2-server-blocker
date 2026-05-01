@@ -1,6 +1,6 @@
 # L4D2 Server Blocker
 
-Left 4 Dead 2의 매치메이커가 원치 않는 서버에 연결할 때, 해당 연결을 커널 레벨에서 가로채서 즉시 메인 타이틀 UI로 복귀시키는 프로그램입니다.
+Left 4 Dead 2의 매치메이커가 원치 않는 서버에 연결할 때, 해당 연결을 가로채서 즉시 메인 타이틀 UI로 복귀시키는 프로그램입니다.
 
 <a href="https://www.youtube.com/watch?v=X6DU8O_8J6Q"><img src="https://img.youtube.com/vi/X6DU8O_8J6Q/maxresdefault.jpg" width="360"></a>
 
