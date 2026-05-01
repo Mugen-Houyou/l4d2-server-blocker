@@ -138,7 +138,7 @@ The client reads `auth_protocol = 0`, sees it is not `PROTOCOL_STEAM(3)`, and im
 python server_blocker.py
 ```
 
-### Building a Portable EXE
+### Building a Portable EXE by yourself
 
 ```bash
 pip install pyinstaller pydivert
@@ -149,7 +149,7 @@ pyinstaller --onefile --uac-admin --console \
   server_blocker.py
 ```
 
-The built `server_blocker.exe` runs standalone without Python. A UAC manifest is embedded, so it automatically requests administrator privileges when double-clicked.
+The built `server_blocker.exe` should run standalone without Python. A UAC manifest is embedded, so it automatically requests administrator privileges when double-clicked.
 
 
 ## License
