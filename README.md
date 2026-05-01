@@ -67,9 +67,9 @@ Client ──A2S_GETCHALLENGE──▶ Blocked Server
 
 ## 적용 범위
 
-L4D2 게임뿐 아니라 **Windows 전체**의 outbound UDP에 적용됩니다. WinDivert의 NETWORK 레이어는 프로세스(PID) 단위 필터링을 지원하지 않습니다. 만약 프로세스별 제한이 필요하면 SOCKET 레이어로 올라가는 것을 고려해볼 수는 있겠습니다.
-
 > 아래부터는 기술적인 내용으로, 참고만 하시면 됩니다.
+
+L4D2 게임뿐 아니라 **Windows 전체**의 outbound UDP에 적용됩니다. WinDivert의 NETWORK 레이어는 프로세스(PID) 단위 필터링을 지원하지 않습니다. 만약 프로세스별 제한이 필요하면 SOCKET 레이어로 올라가는 것을 고려해볼 수는 있겠습니다.
 
 ## 동작 원리
 
