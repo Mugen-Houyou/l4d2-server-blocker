@@ -31,6 +31,7 @@ Client ──A2S_GETCHALLENGE──▶ Blocked Server
 
 - Windows 10/11 (64-bit)
 - 관리자 권한
+- 개발자 콘솔이 활성화된 Left 4 Dead 2 게임 클라이언트
 
 ## 사용법
 
