@@ -8,13 +8,13 @@ A program that intercepts unwanted server connections from Left 4 Dead 2's match
 
 ## Problem
 
-L4D2's matchmaker does not distinguish between official and private servers. Asking a private server operator to ban you (a "self-ban") offers no guarantee, and blocking them via Windows Firewall causes 10 retry attempts, wasting time.
+L4D2's matchmaker does not distinguish between official and community servers. Asking a community server operator to ban you (a "self-ban") offers no guarantee, and blocking them via Windows Firewall causes 10 retry attempts, wasting time.
 
-This meant that every time you joined a match, you had to open the console with \`, visually check whether the IP address belongs to an unwanted private server, and if so, type `disconnect` or click leave — a tedious process repeated over and over.
+This meant that every time you joined a match, you had to open the console with \`, visually check whether the IP address belongs to an unwanted community server, and if so, type `disconnect` or click leave — a tedious process repeated over and over.
 
 ## Solution
 
-This program solves the above problem by making the L4D2 client immediately return to the main title UI when it attempts to connect to a specific private server.
+This program solves the above problem by making the L4D2 client immediately return to the main title UI when it attempts to connect to a specific community server.
 
 **This program does not modify or tamper with the L4D2 game itself — it intercepts packets destined for specific servers at the Windows network stack level and sends back a response on their behalf.** It uses the [WinDivert](https://reqrypt.org/windivert.html) kernel driver to capture outbound UDP packets to blocked servers and injects a response mimicking the Source engine protocol, causing the L4D2 client to immediately give up the connection. See "How It Works" below for details.
 
@@ -32,7 +32,7 @@ Client ──A2S_GETCHALLENGE──▶ Blocked Server
 
 ## Usage
 
-1. Add the IP addresses and ports of the private servers you want to avoid to `blocked_servers.json`.
+1. Add the IP addresses and ports of the community servers you want to avoid to `blocked_servers.json`.
 
 - You can find the server's IP address and port in the in-game console (\` key).
 
