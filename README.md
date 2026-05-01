@@ -30,24 +30,6 @@ Client ──A2S_GETCHALLENGE──▶ Blocked Server
 - Windows 10/11 (64-bit)
 - 관리자 권한
 
-### Python으로 실행할 경우
-
-- Python 3.10+
-- `pip install pydivert`
-
-### 포터블 EXE로 빌드할 경우
-
-```bash
-pip install pyinstaller pydivert
-pyinstaller --onefile --uac-admin --console \
-  --add-data "<site-packages>/pydivert/windivert_dll/WinDivert64.dll;pydivert/windivert_dll" \
-  --add-data "<site-packages>/pydivert/windivert_dll/WinDivert64.sys;pydivert/windivert_dll" \
-  --add-binary "<python-env>/Library/bin/ffi.dll;." \
-  server_blocker.py
-```
-
-빌드된 `server_blocker.exe`는 Python 없이 단독 실행 가능. UAC 매니페스트가 내장되어 더블클릭 시 자동으로 관리자 권한을 요청합니다.
-
 ## 사용법
 
 1. 접속을 피하고자 하는 사설 서버의 IP 주소, 포트를 `blocked_servers.json`에 추가합니다. 아래와 같은 포맷으로 추가하시면 됩니다.
@@ -71,12 +53,6 @@ pyinstaller --onefile --uac-admin --console \
 
 2. `server_blocker.exe`를 더블클릭 후 관리자 권한으로 실행합니다.
 
-- 또는, 아래와 같이 실행할 수도 있습니다.
-
-```bash
-# Python
-python server_blocker.py
-```
 
 3. L4D2 게임을 켜서 평소처럼 플레이하세요. 차단한 서버에 접속을 시도하는 즉시 메인 UI로 복귀됩니다.
 
@@ -152,6 +128,32 @@ FF FF FF FF 41              ← connectionless header + S2C_CHALLENGE
 4. 원본 outbound 패킷은 서버에 도달하지 않고 drop
 
 클라이언트는 `auth_protocol = 0`을 읽고 `PROTOCOL_STEAM(3)`이 아님을 확인한 즉시 `Disconnect()`를 호출한다. 타임아웃이나 재시도 없이 **즉시** 연결이 해제되며, 메시지 없이 메인 타이틀 UI로 복귀합니다.
+
+## Python으로 직접 실행 또는 직접 빌드하기
+
+### Python으로 실행할 경우
+
+- Python 3.10+ 필요
+- `pip install pydivert`로 라이브러리 설치 후 아래와 같이 실행
+
+```bash
+# Python
+python server_blocker.py
+```
+
+### 포터블 EXE로 빌드할 경우
+
+```bash
+pip install pyinstaller pydivert
+pyinstaller --onefile --uac-admin --console \
+  --add-data "<site-packages>/pydivert/windivert_dll/WinDivert64.dll;pydivert/windivert_dll" \
+  --add-data "<site-packages>/pydivert/windivert_dll/WinDivert64.sys;pydivert/windivert_dll" \
+  --add-binary "<python-env>/Library/bin/ffi.dll;." \
+  server_blocker.py
+```
+
+빌드된 `server_blocker.exe`는 Python 없이 단독 실행 가능. UAC 매니페스트가 내장되어 더블클릭 시 자동으로 관리자 권한을 요청합니다.
+
 
 ## 라이선스
 
