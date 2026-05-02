@@ -4,7 +4,7 @@ A program that intercepts unwanted server connections from Left 4 Dead 2's match
 
 <a href="https://www.youtube.com/watch?v=X6DU8O_8J6Q"><img src="https://img.youtube.com/vi/X6DU8O_8J6Q/maxresdefault.jpg" width="360"></a>
 
-[Demo video](https://www.youtube.com/watch?v=X6DU8O_8J6Q)
+[Demo clip](https://www.youtube.com/watch?v=X6DU8O_8J6Q)
 
 ## Problem
 
