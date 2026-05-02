@@ -132,7 +132,7 @@ FF FF FF FF 41              ← connectionless header + S2C_CHALLENGE
 
 ## Python으로 직접 실행 또는 직접 빌드하기
 
-### Python으로 실행할 경우
+### Python으로 실행
 
 - Python 3.10+ 필요
 - `pip install pydivert`로 라이브러리 설치 후 아래와 같이 실행
@@ -142,7 +142,7 @@ FF FF FF FF 41              ← connectionless header + S2C_CHALLENGE
 python server_blocker.py
 ```
 
-### 실행파일 (EXE)로 빌드할 경우
+### 실행파일 직접 빌드
 
 ```bash
 pip install pyinstaller pydivert
