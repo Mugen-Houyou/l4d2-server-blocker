@@ -74,7 +74,7 @@ Client ──A2S_GETCHALLENGE──▶ Blocked Server
 
 L4D2 게임뿐 아니라 **Windows 전체**의 outbound UDP에 적용됩니다. WinDivert의 NETWORK 레이어는 프로세스(PID) 단위 필터링을 지원하지 않습니다. 만약 프로세스별 제한이 필요하면 SOCKET 레이어로 올라가는 것을 고려해볼 수는 있겠습니다.
 
-## 동작 원리
+## 동작 원리 개요
 
 1. `blocked_servers.json`에서 패턴 로드
 2. WinDivert 필터를 IP 기준으로 구성하여 커널 레벨에서 outbound UDP 캡처
@@ -85,7 +85,8 @@ L4D2 게임뿐 아니라 **Windows 전체**의 outbound UDP에 적용됩니다. 
    - `S2C_CHALLENGE`(invalid auth protocol = 0) 위조 응답을 구성
    - IP/UDP 헤더의 src↔dst를 swap하고 inbound 방향으로 주입
    - 원본 outbound 패킷은 drop
-6. 그 외 패킷은 silent drop
+6. 게임 클라이언트는 해당 응답을 받아 올바른 서버가 아님을 인식하여 접속을 종료
+7. 이외 패킷은 silent drop
 
 ## 왜 즉시 차단되는가
 
