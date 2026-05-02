@@ -158,4 +158,4 @@ pyinstaller --onefile --uac-admin --console \
 
 ## 라이선스
 
-AGPLv3
+이 프로젝트는 [GNU Affero General Public License v3.0](https://www.gnu.org/licenses/agpl-3.0.html) 하에 배포됩니다. 자유롭게 사용·수정·재배포할 수 있으나, 수정본을 배포할 경우 동일 라이선스 하에 소스 코드를 공개해야 합니다.

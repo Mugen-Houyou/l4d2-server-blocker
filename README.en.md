@@ -154,4 +154,4 @@ The built `server_blocker.exe` should run standalone without Python. A UAC manif
 
 ## License
 
-AGPLv3
+This project is distributed under the [GNU Affero General Public License v3.0](https://www.gnu.org/licenses/agpl-3.0.html). You are free to use, modify, and redistribute it, but any distributed modifications must be released under the same license with source code made available.
